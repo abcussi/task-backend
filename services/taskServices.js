@@ -5,7 +5,7 @@ const createTask = async (taskData) => {
 };
 
 const getTasksByUserId = async (userId) => {
-  return TaskModel.find({ userid: userId });
+  return TaskModel.find({ userId: userId });
 };
 
 const updateTaskById = async (taskId, updateData) => {

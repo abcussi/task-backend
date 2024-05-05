@@ -10,7 +10,7 @@ const limiter = require("./middleware/limiterMiddleware");
 //routes
 const healthCheck = require("./routes/healthCheckRoute");  
 const users = require('./routes/userRoute');
-const tasks = require('./routes/tasks');
+const tasks = require('./routes/taskRoute');
 
 //configurations and middlewares for the app
 app.use(logger('dev'));

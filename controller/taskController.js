@@ -6,13 +6,13 @@ const handleError = (res, error) => {
 };
 
 const createTask = async (req, res, next) => {
-  const { userid, task } = req.body;
-  if (!userid || !task) {
+  const { userId, task } = req.body;
+  if (!userId) {
     return res.status(400).json({ status: 'error', message: 'Required fields are not present' });
   }
 
   try {
-    await taskService.createTask({ userid, task, completed: false });
+    await taskService.createTask(req.body);
     return res.json({ status: 'success', message: 'Task added successfully!' });
   } catch (error) {
     handleError(res, error);

@@ -2,19 +2,19 @@ const userModel = require("../models/users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose  = require('mongoose');
+
 const generateToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.ENCODE_KEY, {
+  return jwt.sign({ id: userId }, process.env.ENCODE_KEY || 'test', {
     expiresIn: "30m",
   });
 };
 
-const sendResponse = (res, status, message, data = null, token = null) => {
+const sendResponse = (res, status, message, token = null) => {
   res
     .status(status)
     .json({
       status: status === 200 ? "success" : "error",
       message,
-      data,
       token,
     });
 };
@@ -32,7 +32,7 @@ const authenticate = async (req, res, next) => {
     }
 
     const token = generateToken(user._id);
-    return sendResponse(res, 200, "Authentication Successful", user, token);
+    return sendResponse(res, 200, "Authentication Successful", token);
   } catch (error) {
     next(error);
   }

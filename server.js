@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
-const users = require('./routes/users');
-const healthCheck = require("./routes/healthCheck");  
+const users = require('./routes/userRoute');
+const healthCheck = require("./routes/healthCheckRoute");  
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const { initializeMongooseConnection } = require('./db/connection');
 const cookieParser = require('cookie-parser');
-const limiter = require("./middleware/limiter");
+const limiter = require("./middleware/limiterMiddelware");
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));

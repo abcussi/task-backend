@@ -7,7 +7,8 @@ const helmet = require('helmet');
 const csurf = require('csurf');
 const {
   addCsrfToken
-} = require('./middleware/csrfMiddleware'); // Adjust path accordingly
+} = require('./middleware/csrfMiddleware'); 
+const seed = require('./seed/seed'); 
 
 //global middlewares
 const limiter = require("./middleware/limiterMiddleware");
@@ -30,6 +31,8 @@ app.use(helmet.contentSecurityPolicy({
 //db connection import and initialization
 const { initializeMongooseConnection } = require('./db/connection');
 
+// call seed 
+seed();
 // Initialize `csurf` middleware
 const csrfProtection = csurf({ cookie: true });
 

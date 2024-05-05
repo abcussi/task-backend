@@ -1,6 +1,18 @@
-const mongoose = require('mongoose');
-const bluebird = require('bluebird');
-const mongoDB = 'mongodb://localhost:27017/nodeApi';
-mongoose.Promise = bluebird;
+require('dotenv').config(); // Load environment variables
 
-module.exports = mongoose;
+const dbConfig = {
+  username: encodeURIComponent(process.env.MONGO_INITDB_ROOT_USERNAME),
+  password: encodeURIComponent(process.env.MONGO_INITDB_ROOT_PASSWORD),
+  host: 'localhost',
+  port: 27017,
+  database: '', // Set the database name here if required
+  options: {
+    autoIndex: false,
+    authSource: 'admin'
+  }
+};
+
+// Construct the connection string
+const connectionString = `mongodb://${dbConfig.username}:${dbConfig.password}@${dbConfig.host}:${dbConfig.port}/${dbConfig.database}`;
+
+module.exports = { connectionString, options: dbConfig.options };

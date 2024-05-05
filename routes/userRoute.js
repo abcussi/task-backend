@@ -3,8 +3,10 @@ const router = express.Router();
 
 const userController = require("../controller/userController");
 const { validateUser } = require("../middleware/validationMiddleware");
+const { JwtAuthenticate } = require("../middleware/authMiddleware");
 
 router.post("/login", [validateUser], userController.authenticate);
 router.post('/signup', [validateUser], userController.signup);
+router.get('/', [JwtAuthenticate], userController.getAllUsers);
 
 module.exports = router;

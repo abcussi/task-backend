@@ -20,6 +20,10 @@ const findUserByEmail = async (email) => {
   return userModel.findOne({ email }).lean();
 };
 
+const findAllUsers = async () => {
+  return userModel.find({}, 'name').lean();
+};
+
 const createUser = async (userData) => {
   return userModel.create(userData);
 };
@@ -30,4 +34,5 @@ module.exports = {
   validatePassword,
   findUserByEmail,
   createUser,
+  findAllUsers
 };

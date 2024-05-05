@@ -6,10 +6,12 @@ const healthCheck = require("./routes/healthCheck");
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const { initializeMongooseConnection } = require('./db/connection');
+const cookieParser = require('cookie-parser');
 
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 app.use('/apiv1', apiRouter);

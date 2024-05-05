@@ -10,12 +10,18 @@ const generateToken = (userId) => {
 };
 
 const sendResponse = (res, status, message, token = null) => {
+  if (status === 200 ) {
+    res.cookie('x-access-token', token, {
+      httpOnly: true, 
+      secure: true,
+      maxAge: 30 * 60 * 1000 // 30 min
+    });
+  }
   res
     .status(status)
     .json({
       status: status === 200 ? "success" : "error",
       message,
-      token,
     });
 };
 

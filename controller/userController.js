@@ -1,6 +1,6 @@
 const userService = require("../services/userService");
 
-const sendResponse = (res, status, message, token = null) => {
+const sendResponse = (res, status, message, token = null, data = {}) => {
   if (status === 200 && token) {
     res.cookie("x-access-token", token, {
       httpOnly: true,
@@ -12,6 +12,7 @@ const sendResponse = (res, status, message, token = null) => {
   res.status(status).json({
     status: status === 200 ? "success" : "error",
     message,
+    data: data,
   });
 };
 
@@ -68,7 +69,18 @@ const signup = async (req, res, next) => {
   }
 };
 
+const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await userService.findAllUsers();
+    const namesOnly = users.map(user => ({ name: user.name }));
+    return sendResponse(res, 200, "List of Users", null, namesOnly);
+  } catch (error) {
+    return handleError(res, error);
+  }
+};
+
 module.exports = {
   authenticate,
   signup,
+  getAllUsers
 };

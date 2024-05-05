@@ -48,7 +48,7 @@ const authenticate = async (req, res, next) => {
 };
 
 // Create a new user and return the created user's token
-const createUser = async (req, res, next) => {
+const signup = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
@@ -76,5 +76,5 @@ const createUser = async (req, res, next) => {
 
 module.exports = {
   authenticate,
-  createUser,
+  signup,
 };

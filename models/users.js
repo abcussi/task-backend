@@ -30,12 +30,6 @@ let model = mongoose.model('User', UserSchema);
 model.getAllUsers = function (done) {
     this.find({}, done).lean();
 };
-
-UserSchema.pre('save', function(next){
-    this.password = bcrypt.hashSync(this.password, saltRounds);
-    next();
-    });
-
     
 module.exports = model;
 

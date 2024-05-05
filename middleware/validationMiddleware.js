@@ -21,14 +21,14 @@ const validateUser = (req, res, next) => {
 
 const validateTask = (req, res, next) => {
   const schema = Joi.object({
-    title: Joi.string().min(1),
     userId: Joi.string().required(),
+    title: Joi.string().min(1),
     description: Joi.string(),
-    refUserId: Joi.string(),
     status: Joi.string(),
+    refUserId: Joi.alternatives().try(Joi.string(), Joi.allow(null)),
   });
 
-  const { error } = schema.validate(req.body.task);
+  const { error } = schema.validate(req.body);
 
   if (error) {
     return res.status(400).json({

@@ -1,11 +1,17 @@
-const TaskModel = require('../models/taskModel');
+const TaskModel = require("../models/taskModel");
+const Status = require("../models/statusModel");
+const User = require("../models/userModel");
 
 const createTask = async (taskData) => {
   return TaskModel.create(taskData);
 };
 
 const getTasksByUserId = async (userId) => {
-  return TaskModel.find({ userId: userId });
+  return TaskModel.find({ userId: userId })
+    .populate("status", "status")
+    .populate("userId", "name email")
+    .populate("refUserId", "name email")
+    .exec();
 };
 
 const updateTaskById = async (taskId, updateData) => {
@@ -17,7 +23,11 @@ const deleteTaskById = async (taskId) => {
 };
 
 const getAllTasks = async () => {
-  return TaskModel.find();
+  return TaskModel.find()
+    .populate("status", "status")
+    .populate("userId", "name email")
+    .populate("refUserId", "name email")
+    .exec();
 };
 
 module.exports = {
@@ -25,5 +35,5 @@ module.exports = {
   getTasksByUserId,
   updateTaskById,
   deleteTaskById,
-  getAllTasks
+  getAllTasks,
 };

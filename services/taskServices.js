@@ -16,9 +16,14 @@ const deleteTaskById = async (taskId) => {
   return TaskModel.findByIdAndDelete(taskId);
 };
 
+const getAllTasks = async () => {
+  return TaskModel.find();
+};
+
 module.exports = {
   createTask,
   getTasksByUserId,
   updateTaskById,
   deleteTaskById,
+  getAllTasks
 };

@@ -1,9 +1,10 @@
+'use strict';
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-
  name: {
   type: String,
   trim: true,  
@@ -19,10 +20,22 @@ const UserSchema = new Schema({
   trim: true,
   required: true
  }
+},
+{
+    collection: 'User'
 });
 
+let model = mongoose.model('User', UserSchema);
+
+model.getAllUsers = function (done) {
+    this.find({}, done).lean();
+};
+
 UserSchema.pre('save', function(next){
-this.password = bcrypt.hashSync(this.password, saltRounds);
-next();
-});
-module.exports = mongoose.model('User', UserSchema);
+    this.password = bcrypt.hashSync(this.password, saltRounds);
+    next();
+    });
+
+    
+module.exports = model;
+

@@ -27,7 +27,8 @@ const getAllTasks = async () => {
     .populate("status", "status")
     .populate("userId", "name email")
     .populate("refUserId", "name email")
-    .exec();
+    .exec()
+    .lean();
 };
 
 module.exports = {

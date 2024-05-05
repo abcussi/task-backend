@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 const TaskSchema = new Schema(
   {
     userId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Reference to User model
       required: true,
     },
     title: {
@@ -13,10 +14,13 @@ const TaskSchema = new Schema(
       type: String,
     },
     status: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Status', // Reference to Status model
+      required: true,
     },
     refUserId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User', // Reference to User model
     },
   },
   {

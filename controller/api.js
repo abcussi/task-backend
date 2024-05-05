@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const cookieParser = require('cookie-parser');
 
 function getToken(req) {
     // Prioritize tokens in the order of body, query, headers
@@ -6,7 +7,9 @@ function getToken(req) {
       req.body?.token,
       req.query?.token,
       req.headers["x-access-token"],
-      req.headers["authorization"]
+      req.headers["authorization"],
+      req.cookies["x-access-token"]
+
     ];
   
     for (const token of tokenSources) {

@@ -2,9 +2,9 @@ const Joi = require("joi");
 
 const validateUser = (req, res, next) => {
   const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-    name: Joi.string().min(3),
+    email: Joi.string().email().required().max(50),
+    password: Joi.string().min(6).required().max(50),
+    name: Joi.string().min(3).max(50),
   });
 
   const { error } = schema.validate(req.body);
@@ -21,11 +21,11 @@ const validateUser = (req, res, next) => {
 
 const validateTask = (req, res, next) => {
   const schema = Joi.object({
-    userId: Joi.string().required(),
-    title: Joi.string().min(1),
-    description: Joi.string(),
-    status: Joi.string(),
-    refUserId: Joi.alternatives().try(Joi.string(), Joi.allow(null)),
+    userId: Joi.string().required().max(50),
+    title: Joi.string().min(1).max(50),
+    description: Joi.string().max(50),
+    status: Joi.string().max(50),
+    refUserId: Joi.alternatives().try(Joi.string(), Joi.allow(null)).max(50),
   });
 
   const { error } = schema.validate(req.body);

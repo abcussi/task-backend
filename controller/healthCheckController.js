@@ -9,6 +9,13 @@ const check = async (req, res, next) => {
   res.send(formatDate(currentDate))
 };
 
+const csrfToken = (req, res) => {
+  // Send the CSRF token as JSON
+  res.json({ csrfToken: res.locals.csrfToken });
+};
+
+
 module.exports = {
     check,
+    csrfToken
 };

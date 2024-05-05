@@ -4,7 +4,8 @@ const validateUser = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().email().required().max(50),
     password: Joi.string().min(6).required().max(50),
-    name: Joi.string().min(3).max(50),
+    name: Joi.string().alphanum().min(3).max(50),
+    _csrf: Joi.string().required().max(50),
   });
 
   const { error } = schema.validate(req.body);
@@ -26,6 +27,7 @@ const validateTask = (req, res, next) => {
     description: Joi.string().max(50),
     status: Joi.string().max(50),
     refUserId: Joi.alternatives().try(Joi.string(), Joi.allow(null)).max(50),
+    _csrf: Joi.string().required().max(50),
   });
 
   const { error } = schema.validate(req.body);

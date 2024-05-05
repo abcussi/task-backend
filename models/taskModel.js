@@ -26,10 +26,4 @@ const TaskSchema = new Schema(
   }
 );
 
-let model = mongoose.model("Task", TaskSchema);
-
-model.getAllTasks = function (done) {
-  this.find({}, done).lean();
-};
-
-module.exports = model;
+module.exports = mongoose.model("Task", TaskSchema);

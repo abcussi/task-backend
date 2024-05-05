@@ -25,11 +25,5 @@ const UserSchema = new Schema({
     collection: 'User'
 });
 
-let model = mongoose.model('User', UserSchema);
-
-model.getAllUsers = function (done) {
-    this.find({}, done).lean();
-};
-    
-module.exports = model;
+module.exports = mongoose.model('User', UserSchema);
 

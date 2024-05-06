@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { validateTask } = require("../middleware/validationMiddleware");
+const { JwtAuthenticate } = require("../middleware/authMiddleware");
 
 const statusController = require("../controller/statusController");
 
-router.get("/status", [validateTask], statusController.getStatus);
+router.get("/status", [JwtAuthenticate], statusController.getStatus);
 
 module.exports = router;

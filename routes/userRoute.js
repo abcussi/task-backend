@@ -10,5 +10,6 @@ router.post("/login", [validateUser], userController.authenticate);
 router.post('/signup', [validateUser], userController.signup);
 router.get('/', [JwtAuthenticate], userController.getAllUsers);
 router.post('/find-by-email', [JwtAuthenticate], userController.getUserInfoByEmail);
+router.post('/find-name-by-id', [JwtAuthenticate], userController.getNameById);
 
 module.exports = router;

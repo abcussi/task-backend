@@ -3,8 +3,8 @@ const userService = require("../services/userService");
 const sendResponse = (res, status, message, token = null, data = {}) => {
   if (token !== null) {
     res.cookie("x-access-token", token, {
-      httpOnly: true,
-      secure: true,
+      //httpOnly: true,// use ONLY WITH PROD
+      //secure: true, // use with https
       maxAge: 30 * 60 * 1000, // 30 min
     });
   }
@@ -87,16 +87,37 @@ const getUserInfoByEmail = async (req, res, next) => {
     return sendResponse(res, 400, "Email is required.");
   }
   try {
-    const users = await userService.findUserByEmail(email);
+    let users = await userService.findUserByEmail(email);
+    if (users) {
+      delete users.password;
+    }
     return sendResponse(res, 200, "List of Users", null, users);
   } catch (error) {
     return handleError(res, error);
   }
 };
 
+const getNameById = async (req, res, next) => {
+  const { id } = req.body;
+  if (!id) {
+    return sendResponse(res, 400, "Email is required.");
+  }
+  try {
+    let users = await userService.findNameById(id);
+    if (users) {
+      delete users.password;
+    }
+    return sendResponse(res, 200, "List of Users", null, users.name);
+  } catch (error) {
+    return handleError(res, error);
+  }
+};
+
+
 module.exports = {
   authenticate,
   signup,
   getAllUsers,
-  getUserInfoByEmail
+  getUserInfoByEmail,
+  getNameById
 };

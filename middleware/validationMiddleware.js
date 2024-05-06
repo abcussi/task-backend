@@ -26,7 +26,10 @@ const validateTask = (req, res, next) => {
     title: Joi.string().min(1).max(50),
     description: Joi.string().max(50),
     status: Joi.string().max(50),
-    refUserId: Joi.alternatives().try(Joi.string(), Joi.allow(null)).max(50),
+    refUserId: Joi.alternatives().try(
+      Joi.string().max(50), // Apply `max` to string
+      Joi.allow(null)
+  ),
     //_csrf: Joi.string().required().max(50),
   });
 

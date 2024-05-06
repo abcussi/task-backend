@@ -6,6 +6,11 @@ const { hashPassword } = require("../services/userService");
 
 const seed = async () => {
   try {
+        // Delete all existing documents in each collection
+        await Status.deleteMany({});
+        await User.deleteMany({});
+        await Task.deleteMany({});
+    
     const statuses = await Status.insertMany([
         { status: "Todo" },
         { status: "Incomplete" },

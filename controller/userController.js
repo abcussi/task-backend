@@ -39,7 +39,7 @@ const authenticate = async (req, res, next) => {
     }
 
     const token = userService.generateToken(user._id);
-    return sendResponse(res, 200, "Authentication Successful", token);
+    return sendResponse(res, 200, "Authentication Successful", token, token);
   } catch (error) {
     return handleError(res, error);
   }

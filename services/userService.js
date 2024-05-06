@@ -21,7 +21,7 @@ const findUserByEmail = async (email) => {
 };
 
 const findAllUsers = async () => {
-  return userModel.find({}, 'name').lean();
+  return userModel.find({}, 'name email').lean();
 };
 
 const createUser = async (userData) => {

@@ -1,7 +1,7 @@
 const userService = require("../services/userService");
 
 const sendResponse = (res, status, message, token = null, data = {}) => {
-  if (status === 200 && token) {
+  if (token !== null ) {
     res.cookie("x-access-token", token, {
       httpOnly: true,
       secure: true,
@@ -63,7 +63,7 @@ const signup = async (req, res, next) => {
     });
 
     const token = userService.generateToken(newUser._id);
-    return sendResponse(res, 200, "User added successfully", token);
+    return sendResponse(res, 200, "User added successfully", token, token);
   } catch (error) {
     return handleError(res, error);
   }

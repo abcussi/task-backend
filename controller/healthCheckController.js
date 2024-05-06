@@ -11,7 +11,7 @@ const check = async (req, res, next) => {
 
 const csrfToken = (req, res) => {
   // Send the CSRF token as JSON
-  res.json({ csrfToken: res.locals.csrfToken });
+ // res.json({ CSRFToken: req.CSRFToken() });
 };
 
 
